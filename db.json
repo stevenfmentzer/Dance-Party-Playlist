@@ -210,5 +210,22 @@
   }
       ]
     } 
-  ]
+  ],
+
+  "myRatings" : { 
+    { "id": 1
+      "spotifyId" : "7ouMYWpwJ422jRcDASZB7P"
+      "rating" : "0"
+    },
+    {
+      "id": 2
+      "spotifyId" : "4VqPOruhp5EdPBeR92t6lQ"
+      "rating" : "0"
+    },
+    {
+      "id": 3
+      "spotifyId" : "2takcwOaAZWiXQijPHIx7B"
+      "rating" : "0"
+    }
+  }
 }
