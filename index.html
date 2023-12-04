@@ -27,7 +27,7 @@
     <div class="container">
         <div class="column">
           <!-- Content for the vertical scrollable navigation goes here -->
-          <ul>
+          <ul class="">
             <img src="https://www.billboard.com/wp-content/uploads/2022/06/beyonce-Lemonade-album-art-billboard-1240.jpg?w=600" alt="Beyonce">
             <img src="https://www.billboard.com/wp-content/uploads/2022/06/beyonce-Lemonade-album-art-billboard-1240.jpg?w=600" alt="Beyonce">
             <img src="https://www.billboard.com/wp-content/uploads/2022/06/beyonce-Lemonade-album-art-billboard-1240.jpg?w=600" alt="Beyonce">
@@ -39,7 +39,16 @@
           </ul>
         </div>
         <div class="column">Column 2</div>
-        <div class="column">Column 3</div>
+        <div class="column" id="myForm" >
+          <h2>Rate the playlist!</h2>
+          <form action="/submit-url" method="post">
+            <div class="rating"></div>
+            <span>My rating: </span>
+            <input type="range" min="0" max="100" step="5" value="0" id="ratingSlider">
+            <span id="ratingValue">0</span>
+            <div class="rating"></div>
+            <input type="submit" value="Submit">
+          </form>
       </div>
   </body>
 </html>
