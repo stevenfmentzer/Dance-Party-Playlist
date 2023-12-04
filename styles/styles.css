@@ -1,0 +1,9 @@
+.page-title {
+    margin-right: auto;
+    background-color: aqua;
+    font-family: 'Nova Square', sans-serif;
+    max-width: 1300px;
+    max-height:300px;
+    margin-left: auto;
+    text-align: center;
+}
