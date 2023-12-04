@@ -92,8 +92,8 @@
           "type": "track",
           "uri": "string",
           "is_local": false
-        } //, Add more tracks for playlist 2 as needed
+        } 
       ]
-    } //, Add more playlists with their tracks as needed
+    } 
   ]
 }

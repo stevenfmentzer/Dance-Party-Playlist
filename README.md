@@ -17,4 +17,8 @@ STRETCH GOALS requiring direct access to Spotify API
 TO DO LIST:
     Build the index.HTML page structure
     Build the index.js and how it interacts with DOM
-    
+
+
+SERVER: 
+http://localhost:3000/playlists
+
