@@ -1,5 +1,20 @@
 # phase-1-project
 
+
+Setup
+Run json-server from this directory.
+
+json-server --watch db.json
+Test your server by visiting this route in the browser:
+
+http://localhost:3000/playlist
+
+Then, open the index.html file on your browser to run the application.
+
+Write your code in the index.js file.
+
+
+
 FETCH REQUESTS for DB.JSON
 
     GET: Fetch all songs from one playlist and display them in nav-bar element
