@@ -14,7 +14,7 @@ Then, open the index.html file on your browser to run the application.
 
 Write your code in the index.js file.
 
-<h2>DB.JSON data points:</h2>
+<h2>Important Data Point Locations:</h2>
 
     Album Name: playlists[index].tracks[index].album.name
     Album Art: playlists[index].tracks[index]album.images[1].url
@@ -24,7 +24,8 @@ Write your code in the index.js file.
     Song Spotify ID: playlists[index].tracks[index]artist.id
     Song position in album: playlists[index].tracks[index]artist.track_number
 
-<h2>All of 'myRatings' at the bottom of the page</h2>
+<h3>.myRatings</h3>
+
     "id": 1
     "spotifyId" : "7ouMYWpwJ422jRcDASZB7P"
     "rating" : "0"
