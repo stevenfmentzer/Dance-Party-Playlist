@@ -3,19 +3,21 @@
 
 fetch('http://localhost:3000/playlists')
   .then(response => response.json())
-  .then(albums => {
-    renderPlaylists(albums);
+  .then(playlists => {
+    renderPlaylists(playlists);
   });
 
-function renderPlaylists(albums) {
-  playlists.forEach(renderSinglePlaylist);
+function renderPlaylists(playlists) {
+  playlists.forEach(playlist =>{
+   renderSinglePlaylist(playlist) 
+  });
 }
 
-function renderSinglePlaylist(albulms) {
+function renderSinglePlaylist(playlist) {
   const newElement = document.getElementById("album-art");
-  const spanElement = document.createElement("img");
-  spanElement.src = album.tracks;
-  newElement.append(spanElement);
+  const imageElement = document.createElement("img");
+  imageElement.src = playlist[0].tracks[0].playlist.images[1].url
+  newElement.append(imageElement);
 }
 
 
