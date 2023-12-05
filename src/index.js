@@ -15,15 +15,39 @@ function renderPlaylists(playlists) {
 
 function renderSinglePlaylist(playlist) {
   for (let i = 0; i < playlist.tracks.length; i++){
-    const newElement = document.getElementById("album-art");
-    const imageElement = document.createElement("img");
-    imageElement.className = "album-image"
-    imageElement.src = playlist.tracks[i].album.images[1].url
-    console.log(playlist.tracks[i].album.images[1].url)
-    newElement.append(imageElement);
+    renderTrack(playlist.tracks[i])
+    displayTrackDetails(playlist.tracks[i])
+    //postMyRating(playlist.tracks[i], 0)
   }
 }
 
+function displayTrackDetails(track) {
+ console.log(track)
+}
+
+function renderTrack(track){
+  const newElement = document.getElementById("album-art");
+    const imageElement = document.createElement("img");
+    imageElement.className = "album-image"
+    imageElement.src = track.album.images[1].url
+    newElement.append(imageElement);
+
+    imageElement.addEventListener("click", () => { 
+      displayTrackDetails(track)
+    })
+}
+
+function postMyRating(track, rating){
+  const data = {
+    "spotifyId": track.artists[0].id,
+    "rating": rating
+  }
+  fetch("http://localhost:3000/myRatings", {
+    "method" : "POST",
+    "headers" : {"Content-Type" : "application/json"},
+    "body" : JSON.stringify(data)
+  })
+}
 
 
 // const ratingSlider = document.getElementById('ratingSlider');
@@ -33,6 +57,8 @@ function renderSinglePlaylist(playlist) {
 //     const value = (parseFloat(this.value) / 10).toFixed(1); // Convert slider value to 0-1 range
 //     ratingValue.textContent = value;
 //   });
+
+
 
 function submitRating() {
     const selectedRating = document.querySelector('input[name="rating"]:checked');
