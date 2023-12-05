@@ -93,3 +93,8 @@ margin-right:20px;  }
     text-shadow: 2px 2px 4px gray;
   }
   
+  .rate-album-heading {
+    font-size: xx-large;
+    text-decoration: underline;
+    text-shadow: 2px 2px 4px gray;
+  }
