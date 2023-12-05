@@ -22,7 +22,26 @@ function renderSinglePlaylist(playlist) {
 }
 
 function displayTrackDetails(track) {
- console.log(track)
+  const albumName = document.getElementById("album-name")
+  const albumTracks = document.getElementById("album-track-count")
+  const artist = document.getElementById("artist")
+  const songName = document.getElementById("song-name")
+  const spotifyId = document.getElementById("spotify-id")
+  const position = document.getElementById("position")
+  const myRating = document.getElementById("my-rating")
+
+  albumName.textContent = track.album.name
+  albumTracks.textContent = track.album.total_tracks
+  artist.textContent = track.artists[0].name
+  songName.textContent = track.name
+  spotifyId.textContent = track.artists[0].id
+  position.textContent = track.track_number
+
+  const target = track.artists[0].id
+
+  fetch(`http://localhost:3000/myRatings/${target}`)
+  .then(res => res.json())
+  .then(data => myRating.textContent = data.rating)
 }
 
 function renderTrack(track){
@@ -39,7 +58,7 @@ function renderTrack(track){
 
 function postMyRating(track, rating){
   const data = {
-    "spotifyId": track.artists[0].id,
+    "id": track.artists[0].id,
     "rating": rating
   }
   fetch("http://localhost:3000/myRatings", {
