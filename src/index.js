@@ -16,6 +16,7 @@ function renderPlaylists(playlists) {
 function renderSinglePlaylist(playlist) {
   const newElement = document.getElementById("album-art");
   const imageElement = document.createElement("img");
+  imageElement.className = "album-image"
   imageElement.src = playlist.tracks[0].album.images[1].url
   newElement.append(imageElement);
 }
