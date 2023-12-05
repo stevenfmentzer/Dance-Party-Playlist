@@ -8,17 +8,20 @@ fetch('http://localhost:3000/playlists')
   });
 
 function renderPlaylists(playlists) {
-  playlists.forEach(playlist =>{
+  playlists.forEach(playlist => {
     renderSinglePlaylist(playlist) 
   });
 }
 
 function renderSinglePlaylist(playlist) {
-  const newElement = document.getElementById("album-art");
-  const imageElement = document.createElement("img");
-  imageElement.className = "album-image"
-  imageElement.src = playlist.tracks[0].album.images[1].url
-  newElement.append(imageElement);
+  for (let i = 0; i < playlist.tracks.length; i++){
+    const newElement = document.getElementById("album-art");
+    const imageElement = document.createElement("img");
+    imageElement.className = "album-image"
+    imageElement.src = playlist.tracks[i].album.images[1].url
+    console.log(playlist.tracks[i].album.images[1].url)
+    newElement.append(imageElement);
+  }
 }
 
 
