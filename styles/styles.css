@@ -25,6 +25,7 @@ body, h1, h2, p {
     margin: 0px; 
     padding: 0px; 
     overflow:hidden; 
+max-width: fit-content;
   }
 
   .column {
@@ -51,9 +52,10 @@ body, h1, h2, p {
   
   .column {
     background-color: #f0f0f0;
-    border: 0px solid #ddd;
+    border: 5px solid black;
     margin: 0px;
     text-align: left;
+    max-width: fit-content;
   }
 
   .column ul {
@@ -66,4 +68,16 @@ body, h1, h2, p {
     display: block; 
     margin: 0; 
     padding: 0%;
+  }
+
+  
+
+  .column-2{
+    background-color: #f0f0f0;
+    border: 5px solid black;
+    margin: 0px;
+    text-align: left;
+    max-width: fit-content;
+    margin-left: 30px;
+    margin-right: 30px;
   }
