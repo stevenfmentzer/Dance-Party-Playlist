@@ -9,18 +9,16 @@ fetch('http://localhost:3000/playlists')
 
 function renderPlaylists(playlists) {
   playlists.forEach(playlist =>{
-   renderSinglePlaylist(playlist) 
+    renderSinglePlaylist(playlist) 
   });
 }
 
 function renderSinglePlaylist(playlist) {
   const newElement = document.getElementById("album-art");
   const imageElement = document.createElement("img");
-  imageElement.src = playlist[0].tracks[0].playlist.images[1].url
+  imageElement.src = playlist.tracks[0].album.images[1].url
   newElement.append(imageElement);
 }
-
-
 
 
 
