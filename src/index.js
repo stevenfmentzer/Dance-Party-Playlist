@@ -110,7 +110,6 @@ function submitRating() {
     if (selectedRating) {
       alert('You rated: ' + selectedRating.value);
       patchRating(currentTrack,selectedRating.value)
-      selectedRating =""
     } else {
       alert('Please select a rating.');
     }
