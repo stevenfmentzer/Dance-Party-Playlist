@@ -1,7 +1,7 @@
 
 //Global variables
 
-let currentTrack
+let currentTrack;
 
 fetch('http://localhost:3000/playlists')
   .then(response => response.json())
@@ -24,7 +24,7 @@ function renderSinglePlaylist(playlist) {
 }
 
 function displayTrackDetails(track) {
-  currentTrack = track
+  currentTrack = track;
   const albumName = document.getElementById("album-name")
   const albumTracks = document.getElementById("album-track-count")
   const artist = document.getElementById("artist")
@@ -94,15 +94,16 @@ function postMyRating(track, rating){
 //     ""
 
 //   }
+const submitButton = document.getElementById('button');
+const myForm = document.getElementById('myForm');
 
-const submitButton= document.getElementById('button')
-
-submitButton.addEventListener('submit',event=>{
-event.preventDefault
-submitRating()
-displayTrackDetails(currentTrack)
-document.getElementById("myForm").reset();
-})
+submitButton.addEventListener('click', event => {
+  event.preventDefault();
+  submitRating();
+  displayTrackDetails(currentTrack);
+  console.log(myForm);
+  myForm.reset();  // Use the reset method on the form
+});
 
 function submitRating() {
     const selectedRating = document.querySelector('input[name="rating"]:checked');
