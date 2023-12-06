@@ -19,16 +19,16 @@ Write your code in the index.js file.
     Album Name: playlists[index].tracks[index].album.name
     Album Art: playlists[index].tracks[index]album.images[1].url
     Number of Tracks in Album: playlists[index].tracks[index]album.total_tracks
-    Artist: playlists[index].tracks[index]artist.artist
-    Song Name: playlists[index].tracks[index]artist.name
-    Song Spotify ID: playlists[index].tracks[index]artist.id
-    Song position in album: playlists[index].tracks[index]artist.track_number
+    Artist: playlists[index].tracks[index]artists.artist
+    Song Name: playlists[index].tracks[index]artists.name
+    Song Spotify ID: playlists[index].tracks[index]artists.id
+    Song position in album: playlists[index].tracks[index]artists.track_number
 
 <h3>.myRatings</h3>
 
-    "id": 1
     "spotifyId" : "7ouMYWpwJ422jRcDASZB7P"
     "rating" : "0"
+    "id": 1
 
 <h2>FETCH REQUESTS for DB.JSON</h2>
 
