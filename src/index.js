@@ -38,10 +38,9 @@ function displayTrackDetails(track) {
   position.textContent = track.track_number
 
   const target = track.artists[0].id
-
   fetch(`http://localhost:3000/myRatings/${target}`)
-  .then(res => res.json())
-  .then(data => myRating.textContent = data.rating)
+    .then(res => res.json())
+    .then(data => myRating.textContent = data.rating)
 }
 
 function renderTrack(track){
