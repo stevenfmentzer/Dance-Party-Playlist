@@ -25,7 +25,7 @@ function displayTrackDetails(track) {
   const albumName = document.getElementById("album-name")
   const albumTracks = document.getElementById("album-track-count")
   const artist = document.getElementById("artist")
-  cogit nst songName = document.getElementById("song-name")
+  const songName = document.getElementById("song-name")
   const spotifyId = document.getElementById("spotify-id")
   const position = document.getElementById("position")
   const myRating = document.getElementById("my-rating")
@@ -75,7 +75,7 @@ fetch('http://localhost:3000/myRatings')
 
 
 function renderRating(ratings){
-  ratings.map(rating =>{
+  ratings.map(rating => {
     renderSingleRating(rating)
   })
 }
@@ -100,7 +100,7 @@ function submitRating(ratingobj){
 //     ratingValue.textContent = value;
 //   });
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 // function submitRating() {
 //     const selectedRating = document.querySelector('input[name="rating"]:checked');
 //     if (selectedRating) {
@@ -110,7 +110,7 @@ function submitRating(ratingobj){
 //       alert('Please select a rating.');
 //     }
 //   }
-=======
+//=======
 
 
 function submitRating() {
@@ -122,4 +122,4 @@ function submitRating() {
       alert('Please select a rating.');
     }
   }
->>>>>>> dd6dd6ac804ff9c1eec9f3d64cc4ce3f6864b13c
+//>>>>>>> dd6dd6ac804ff9c1eec9f3d64cc4ce3f6864b13c
