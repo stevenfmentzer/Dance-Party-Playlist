@@ -76,14 +76,13 @@ function postMyRating(track, rating){
   })
 }
 
-const submitButton = document.getElementById('button');
+const submitButton = document.getElementById('submit-button');
 const myForm = document.getElementById('myForm');
 
-submitButton.addEventListener('click', event => {
+submitButton.addEventListener('submit', event => {
   event.preventDefault();
   submitRating();
   displayTrackDetails(currentTrack);
-  console.log(myForm);
   myForm.reset();  // Use the reset method on the form
 });
 
@@ -91,7 +90,7 @@ function submitRating() {
     const selectedRating = document.querySelector('input[name="rating"]:checked');
     if (selectedRating) {
       alert('You rated: ' + selectedRating.value);
-      patchRating(currentTrack,selectedRating.value)
+      patchRating(currentTrack, selectedRating.value)
     } else {
       alert('Please select a rating.');
     }
@@ -106,11 +105,15 @@ function patchRating(track,rating){
     "method" : "PATCH",
     "headers" : {"Content-Type" : "application/json"},
     "body" : JSON.stringify(data)
+    })
+    fetch(`http://localhost:3000/tracks/${target}`)
+      .then(res => res.json())
+      .then(track => { 
+        displayTrackDetails(track)
   })
 }
 
 document.getElementById("delete-button").addEventListener("click", () => {
-  console.log("click")
   deleteTrack(currentTrack)
 })
 
@@ -136,5 +139,40 @@ function deleteTrack(track){
       .then(track => { 
         displayTrackDetails(track)
       })
-    }
+  }
+}
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "ArrowLeft") {
+      previousSong();
+  }
+  if (event.key === "ArrowRight") {
+      nextSong();
+  }
+});
+
+function previousSong(){
+  const previousTrack = document.getElementById(currentTrack.id).previousElementSibling
+  if (previousTrack) {
+    fetch(`http://localhost:3000/tracks/${previousTrack.id}`)
+    .then(res => res.json())
+    .then(track => { 
+      displayTrackDetails(track)
+    })
+} else { 
+  throw new Error("You're at the first track")
+}
+}
+
+function nextSong(){
+  const nextTrack = (document.getElementById(currentTrack.id).nextElementSibling)
+  if (nextTrack) {
+    fetch(`http://localhost:3000/tracks/${nextTrack.id}`)
+    .then(res => res.json())
+    .then(track => { 
+      displayTrackDetails(track)
+    })
+} else { 
+  throw new Error("You're on the last track")
+  }
 }
