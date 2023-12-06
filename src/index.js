@@ -127,14 +127,14 @@ function deleteTrack(track){
   })
 
     const removeImage = document.getElementById(track.id)
-    console.log(removeImage)
     const nextImage = removeImage.nextElementSibling
-    console.log(removeImage)
-    console.log(`NEXT IMAGE ${nextImage}`)
     removeImage.innerHTML =" "
     removeImage.remove()
     if (nextImage) {
       fetch(`http://localhost:3000/tracks/${nextImage.id}`)
-      displayTrackDetails()
+      .then(res => res.json())
+      .then(track => { 
+        displayTrackDetails(track)
+      })
     }
 }
