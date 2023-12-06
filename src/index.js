@@ -53,6 +53,7 @@ function renderTrack(track){
   const newElement = document.getElementById("album-art");
     const imageElement = document.createElement("img");
     imageElement.className = "album-image"
+    imageElement.id = track.id
     imageElement.src = track.album.images[1].url
     newElement.append(imageElement);
 
@@ -124,4 +125,16 @@ function deleteTrack(track){
     "method" : "DELETE",
     "headers" : {"Content-Type" : "application/json"}
   })
+
+    const removeImage = document.getElementById(track.id)
+    console.log(removeImage)
+    const nextImage = removeImage.nextElementSibling
+    console.log(removeImage)
+    console.log(`NEXT IMAGE ${nextImage}`)
+    removeImage.innerHTML =" "
+    removeImage.remove()
+    if (nextImage) {
+      fetch(`http://localhost:3000/tracks/${nextImage.id}`)
+      displayTrackDetails()
+    }
 }
