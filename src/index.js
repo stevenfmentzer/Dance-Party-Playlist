@@ -25,7 +25,31 @@ function renderSinglePlaylist(playlist) {
 }
 
 
+fetch('http://localhost:3000/myRatings')
+.then(response => response.json())
+.then(ratings => {
+  renderRatings(ratings)
+});
 
+
+function renderRating(ratings){
+  ratings.map(rating =>{
+    renderSingleRating(rating)
+  })
+}
+
+
+// function renderSingleRating(rating){
+
+// }
+function submitRating(ratingobj){
+  fetch('http://localhost:3000/myRatings')
+  method: 'POST'
+  headers:{
+    ""
+
+  }
+}
 // const ratingSlider = document.getElementById('ratingSlider');
 //   const ratingValue = document.getElementById('ratingValue');
 
@@ -34,12 +58,12 @@ function renderSinglePlaylist(playlist) {
 //     ratingValue.textContent = value;
 //   });
 
-function submitRating() {
-    const selectedRating = document.querySelector('input[name="rating"]:checked');
-    if (selectedRating) {
-      alert('You rated: ' + selectedRating.value);
-      // You can handle the rating submission here, e.g., send it to a server
-    } else {
-      alert('Please select a rating.');
-    }
-  }
+// function submitRating() {
+//     const selectedRating = document.querySelector('input[name="rating"]:checked');
+//     if (selectedRating) {
+//       alert('You rated: ' + selectedRating.value);
+//       // You can handle the rating submission here, e.g., send it to a server
+//     } else {
+//       alert('Please select a rating.');
+//     }
+//   }
