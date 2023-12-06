@@ -1,5 +1,7 @@
 
+//Global variables
 
+let currentTrack
 
 fetch('http://localhost:3000/playlists')
   .then(response => response.json())
@@ -22,6 +24,7 @@ function renderSinglePlaylist(playlist) {
 }
 
 function displayTrackDetails(track) {
+  currentTrack = track
   const albumName = document.getElementById("album-name")
   const albumTracks = document.getElementById("album-track-count")
   const artist = document.getElementById("artist")
@@ -67,59 +70,60 @@ function postMyRating(track, rating){
   })
 }
 
-fetch('http://localhost:3000/myRatings')
-.then(response => response.json())
-.then(ratings => {
-  renderRatings(ratings)
-});
+// fetch('http://localhost:3000/myRatings')
+// .then(response => response.json())
+// .then(ratings => {
+//   renderRatings(ratings)
+// });
 
 
-function renderRating(ratings){
-  ratings.map(rating => {
-    renderSingleRating(rating)
-  })
-}
+// function renderRating(ratings){
+//   ratings.map(rating => {
+//     renderSingleRating(rating)
+//   })
+// }
 
 
 // function renderSingleRating(rating){
 
 // }
-function submitRating(ratingobj){
-  fetch('http://localhost:3000/myRatings')
-  method: 'POST'
-  headers:{
-    ""
+// function submitRating(ratingobj){
+//   fetch('http://localhost:3000/myRatings')
+//   method: 'POST'
+//   headers:{
+//     ""
 
-  }
-}
-// const ratingSlider = document.getElementById('ratingSlider');
-//   const ratingValue = document.getElementById('ratingValue');
-
-//   ratingSlider.addEventListener('input', function() {
-//     const value = (parseFloat(this.value) / 10).toFixed(1); // Convert slider value to 0-1 range
-//     ratingValue.textContent = value;
-//   });
-
-//<<<<<<< HEAD
-// function submitRating() {
-//     const selectedRating = document.querySelector('input[name="rating"]:checked');
-//     if (selectedRating) {
-//       alert('You rated: ' + selectedRating.value);
-//       // You can handle the rating submission here, e.g., send it to a server
-//     } else {
-//       alert('Please select a rating.');
-//     }
 //   }
-//=======
 
+const submitButton= document.getElementById('button')
+
+submitButton.addEventListener('submit',event=>{
+event.preventDefault
+submitRating()
+displayTrackDetails(currentTrack)
+document.getElementById("myForm").reset();
+})
 
 function submitRating() {
     const selectedRating = document.querySelector('input[name="rating"]:checked');
     if (selectedRating) {
       alert('You rated: ' + selectedRating.value);
-      // You can handle the rating submission here, e.g., send it to a server
+      patchRating(currentTrack,selectedRating.value)
     } else {
       alert('Please select a rating.');
     }
   }
 //>>>>>>> dd6dd6ac804ff9c1eec9f3d64cc4ce3f6864b13c
+
+function patchRating(track,rating){
+  const data = {
+    // "id": track.artists[0].id,
+    "rating": rating
+  }
+  const target = track.artists[0].id
+  fetch(`http://localhost:3000/myRatings/${target}`, {
+    "method" : "PATCH",
+    "headers" : {"Content-Type" : "application/json"},
+    "body" : JSON.stringify(data)
+  })
+}
