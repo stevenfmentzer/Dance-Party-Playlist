@@ -3,25 +3,28 @@
 
 let currentTrack;
 
-fetch('http://localhost:3000/playlists')
+fetch('http://localhost:3000/tracks')
   .then(response => response.json())
-  .then(playlists => {
-    renderPlaylists(playlists);
+  .then(tracks => {
+    tracks.forEach(track =>{
+      renderTrack(track);
+    })
+    displayTrackDetails(tracks[0])
   });
 
-function renderPlaylists(playlists) {
-  playlists.forEach(playlist => {
-    renderSinglePlaylist(playlist) 
-  });
-}
+// function renderPlaylists(playlists) {
+//   playlists.forEach(playlist => {
+//     renderSinglePlaylist(playlist) 
+//   });
+// }
 
-function renderSinglePlaylist(playlist) {
-  for (let i = 0; i < playlist.tracks.length; i++){
-    renderTrack(playlist.tracks[i])
-    displayTrackDetails(playlist.tracks[i])
-    postMyRating(playlist.tracks[i], 0)
-  }
-}
+// function renderSinglePlaylist(playlist) {
+//   for (let i = 0; i < playlist.tracks.length; i++){
+//     renderTrack(playlist.tracks[i])
+//     displayTrackDetails(playlist.tracks[i])
+//     postMyRating(playlist.tracks[i], 0)
+//   }
+// }
 
 function displayTrackDetails(track) {
   currentTrack = track;
@@ -52,6 +55,8 @@ function renderTrack(track){
     imageElement.className = "album-image"
     imageElement.src = track.album.images[1].url
     newElement.append(imageElement);
+
+    //postMyRating(track, 0)
 
     imageElement.addEventListener("click", () => { 
       displayTrackDetails(track)
@@ -115,7 +120,7 @@ function deleteTrack(track){
     "headers" : {"Content-Type" : "application/json"}
   })
 
-  fetch(`http://localhost:3000/playlists/${track}`,{
+  fetch(`http://localhost:3000/tracks/${target}`,{
     "method" : "DELETE",
     "headers" : {"Content-Type" : "application/json"}
   })
