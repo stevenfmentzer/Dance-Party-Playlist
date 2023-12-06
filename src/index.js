@@ -25,7 +25,7 @@ function displayTrackDetails(track) {
   const albumName = document.getElementById("album-name")
   const albumTracks = document.getElementById("album-track-count")
   const artist = document.getElementById("artist")
-  const songName = document.getElementById("song-name")
+  cogit nst songName = document.getElementById("song-name")
   const spotifyId = document.getElementById("spotify-id")
   const position = document.getElementById("position")
   const myRating = document.getElementById("my-rating")
@@ -67,7 +67,31 @@ function postMyRating(track, rating){
   })
 }
 
+fetch('http://localhost:3000/myRatings')
+.then(response => response.json())
+.then(ratings => {
+  renderRatings(ratings)
+});
 
+
+function renderRating(ratings){
+  ratings.map(rating =>{
+    renderSingleRating(rating)
+  })
+}
+
+
+// function renderSingleRating(rating){
+
+// }
+function submitRating(ratingobj){
+  fetch('http://localhost:3000/myRatings')
+  method: 'POST'
+  headers:{
+    ""
+
+  }
+}
 // const ratingSlider = document.getElementById('ratingSlider');
 //   const ratingValue = document.getElementById('ratingValue');
 
@@ -76,6 +100,17 @@ function postMyRating(track, rating){
 //     ratingValue.textContent = value;
 //   });
 
+<<<<<<< HEAD
+// function submitRating() {
+//     const selectedRating = document.querySelector('input[name="rating"]:checked');
+//     if (selectedRating) {
+//       alert('You rated: ' + selectedRating.value);
+//       // You can handle the rating submission here, e.g., send it to a server
+//     } else {
+//       alert('Please select a rating.');
+//     }
+//   }
+=======
 
 
 function submitRating() {
@@ -87,3 +122,4 @@ function submitRating() {
       alert('Please select a rating.');
     }
   }
+>>>>>>> dd6dd6ac804ff9c1eec9f3d64cc4ce3f6864b13c
