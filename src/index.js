@@ -102,3 +102,21 @@ function patchRating(track,rating){
     "body" : JSON.stringify(data)
   })
 }
+
+document.getElementById("delete-button").addEventListener("click", () => {
+  console.log("click")
+  deleteTrack(currentTrack)
+})
+
+function deleteTrack(track){
+  const target = track.id
+  fetch(`http://localhost:3000/myRatings/${target}`, {
+    "method" : "DELETE",
+    "headers" : {"Content-Type" : "application/json"}
+  })
+
+  fetch(`http://localhost:3000/playlists/${track}`,{
+    "method" : "DELETE",
+    "headers" : {"Content-Type" : "application/json"}
+  })
+}
