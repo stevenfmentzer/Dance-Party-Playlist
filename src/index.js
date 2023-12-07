@@ -1,4 +1,3 @@
-
 //GLOBAL VARIABLES
 
 let currentTrack;
@@ -58,16 +57,11 @@ function renderTrack(track){
     })
 }
 
-async function postMyRating(track, rating){
-  const data = {
-    "id": track.id,
-    "rating": rating
-  }
-  fetch("http://localhost:3000/myRatings", {
-    "method" : "POST",
-    "headers" : {"Content-Type" : "application/json"},
-    "body" : JSON.stringify(data)
-  })
+function fetchThenDisplayTrack(id){
+  fetch(`http://localhost:3000/tracks/${id}`)
+  .then(res => res.json())
+  .then(track => { 
+    displayTrackDetails(track)})
 }
 
 function submitRating() {
@@ -88,7 +82,7 @@ function patchRating(track,rating){
     "headers" : {"Content-Type" : "application/json"},
     "body" : JSON.stringify(data)
     })
-    fetchDisplayTrack(track.id)
+    fetchThenDisplayTrack(track.id)
 }
 
 function deleteCurrentTrack(){
@@ -104,33 +98,24 @@ function deleteCurrentTrack(){
 
   currentTrackElement.remove()
   if (nextTrackElement) {
-    fetchDisplayTrack(nextTrackElement.id)
+    fetchThenDisplayTrack(nextTrackElement.id)
   }
 }
 
 function previousSong(){
   const previousTrack = document.getElementById(currentTrack.id).previousElementSibling
   if (previousTrack) {
-    fetchDisplayTrack(previousTrack.id)
+    fetchThenDisplayTrack(previousTrack.id)
   } else {throw new Error("You're at the first track")}
 }
 
 function nextSong(){
   const nextTrack = (document.getElementById(currentTrack.id).nextElementSibling)
   if (nextTrack) {
-    fetchDisplayTrack(nextTrack.id)
+    fetchThenDisplayTrack(nextTrack.id)
   } else {throw new Error("You're on the last track")}
 }
 
-function fetchDisplayTrack(id){
-  fetch(`http://localhost:3000/tracks/${id}`)
-  .then(res => res.json())
-  .then(track => { 
-    displayTrackDetails(track)})
-}
-
-
-//NOT YET IN USE
 function currentTracker(track){
   currentTrack = track
   currentTrackElement = document.getElementById(track.id)
@@ -145,20 +130,17 @@ function currentTracker(track){
   }
 }
 
-
-// function renderPlaylists(playlists) {
-//   playlists.forEach(playlist => {
-//     renderSinglePlaylist(playlist) 
-//   });
-// }
-
-// function renderSinglePlaylist(playlist) {
-//   for (let i = 0; i < playlist.tracks.length; i++){
-//     renderTrack(playlist.tracks[i])
-//     displayTrackDetails(playlist.tracks[i])
-//     postMyRating(playlist.tracks[i], 0)
-//   }
-// }
+function postMyRating(track, rating){
+  const data = {
+    "id": track.id,
+    "rating": rating
+  }
+  fetch("http://localhost:3000/myRatings", {
+    "method" : "POST",
+    "headers" : {"Content-Type" : "application/json"},
+    "body" : JSON.stringify(data)
+  })
+}
 
 
 //// EVENT LISTENERS
@@ -177,7 +159,6 @@ document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowRight") {
       nextSong();
   }});
-
 
 document.getElementById("delete-button").addEventListener("click", () => {
   deleteCurrentTrack()
