@@ -6,6 +6,39 @@ let nextTrackElement;
 let previousTrackElement;
 const myForm = document.getElementById('myForm');
 
+///////
+
+
+//const fetch = require('node-fetch'); // If using in Node.js
+
+
+
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+myHeaders.append("Authorization", "Bearer BQBqbvFduhjiN4v5x44VOTzh9-HMWpUpMZ399iveXzgT7wlaQYGy9v1mp_HG_8Ny_TGbR0ceAlOVRVNweewOSturH-k76ZTReqcfStCzPd8nv5Nxieg");
+
+var raw = "";
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+};
+  
+  fetch("https://api.spotify.com/v1/tracks?ids=4MjDJD8cW7iVeWInc2Bdyj,1IHWl5LamUGEuP4ozKQSXZ,5pyoxDZ1PX0KxBxiRVxA4U,4DByEumlGTZKSzuVEZ35eo,11C4y2Yz1XbHmaQwO06s9f,2XU0oxnq2qxCpomAAuJY8K,27QvYgBk0CHOVHthWnkuWt,4q8PHoRsPUB52LFylX8Ulz,1oHNvJVbFkexQc0BpQp7Y4,1dzQoRqT5ucxXVaAhTcT0J,0HPD5WQqrq7wPWR7P7Dw1i,0RTzJVkunbGwuRjXDFHnjf,7MXVkk9YMctZqd1Srtv4MB,4OMJGnvZfDvsePyCwRGO7X,3iYNJX4FTRGlfMQySjlGNr,7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B\n\n", 
+  requestOptions)
+    .then(response => response.json())
+    .then(tracks => {
+      console.log(tracks)
+      tracks.tracks.forEach(track =>{
+        (console.log(track))})
+        fetch("http://localhost:3000/tracks",{
+          "method" : "PUT",
+          "headers" : {"Content-Type" : "application/json"},
+          "body" : JSON.stringify(tracks)
+        })})
+      .catch(error => console.log('error', error));
+/////////
+
 
 ////INITIALIZING FETCH
 
