@@ -14,7 +14,7 @@ fetch('http://localhost:3000/tracks')
   .then(response => response.json())
   .then(tracks => {
     tracks.forEach(track =>{
-      postMyRating(track, 0)
+      //postMyRating(track, 0)
       renderTrack(track);
     })
     displayTrackDetails(tracks[0])
