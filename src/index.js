@@ -24,24 +24,26 @@ fetch('http://localhost:3000/tracks')
 
 function displayTrackDetails(track) {
   currentTracker(track);
-  const albumName = document.getElementById("album-name")
-  const albumTracks = document.getElementById("album-track-count")
-  const artist = document.getElementById("artist")
-  const songName = document.getElementById("song-name")
-  const spotifyId = document.getElementById("spotify-id")
-  const position = document.getElementById("position")
-  const myRating = document.getElementById("my-rating")
+  displayMyRating(track);
 
-  albumName.textContent = track.album.name
-  albumTracks.textContent = track.album.total_tracks
-  artist.textContent = track.artists[0].name
-  songName.textContent = track.name
-  spotifyId.textContent = track.id
-  position.textContent = track.track_number
+  const displayArray = [
+    ["album-name", track.album.name],
+    ["album-track-count", track.album.total_tracks],
+    ["artist", track.artists[0].name],
+    ["song-name", track.name],
+    ["spotify-id", track.id],
+    ["position", track.track_number],
+  ]
 
+  displayArray.forEach(value => {
+    document.getElementById(`${value[0]}`).textContent = value[1]
+  })
+}
+
+function displayMyRating(track){
   fetch(`http://localhost:3000/myRatings/${track.id}`)
-    .then(res => res.json())
-    .then(data => myRating.textContent = data.rating)
+  .then(res => res.json())
+  .then(data => document.getElementById("my-rating").textContent = data.rating)
 }
 
 function renderTrack(track){
@@ -64,7 +66,7 @@ function fetchThenDisplayTrack(id){
     displayTrackDetails(track)})
 }
 
-function submitRating() {
+function submitRatingInput() {
     const selectedRating = document.querySelector('input[name="rating"]:checked');
     if (selectedRating) {
       alert('You rated: ' + selectedRating.value);
@@ -85,13 +87,8 @@ function patchRating(track,rating){
     fetchThenDisplayTrack(track.id)
 }
 
-function deleteCurrentTrack(){
-  fetch(`http://localhost:3000/myRatings/${currentTrack.id}`, {
-    "method" : "DELETE",
-    "headers" : {"Content-Type" : "application/json"}
-  })
-
-  fetch(`http://localhost:3000/tracks/${currentTrack.id}`,{
+function deleteCurrentTrack(url){
+  fetch(`http://localhost:3000/${url}/${currentTrack.id}`, {
     "method" : "DELETE",
     "headers" : {"Content-Type" : "application/json"}
   })
@@ -147,8 +144,8 @@ function postMyRating(track, rating){
 
 document.getElementById('submit-button').addEventListener('submit', event => {
   event.preventDefault();
-  submitRating();
-  displayTrackDetails(currentTrack);
+  submitRatingInput();
+  displayMyRating(currentTrack);
   myForm.reset();
 });
 
@@ -161,5 +158,6 @@ document.addEventListener("keydown", function (event) {
   }});
 
 document.getElementById("delete-button").addEventListener("click", () => {
-  deleteCurrentTrack()
+  deleteCurrentTrack(myRatings)
+  deleteCurrentTrack(tracks)
 })
