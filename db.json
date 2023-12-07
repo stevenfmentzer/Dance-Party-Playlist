@@ -6364,11 +6364,15 @@
   "myRatings": [
     {
       "id": "4MjDJD8cW7iVeWInc2Bdyj",
-      "rating": "6"
+      "rating": 0
+    },
+    {
+      "id": "4DByEumlGTZKSzuVEZ35eo",
+      "rating": 0
     },
     {
       "id": "1IHWl5LamUGEuP4ozKQSXZ",
-      "rating": "7"
+      "rating": 0
     },
     {
       "id": "5pyoxDZ1PX0KxBxiRVxA4U",
@@ -6379,15 +6383,11 @@
       "rating": 0
     },
     {
-      "id": "2XU0oxnq2qxCpomAAuJY8K",
+      "id": "27QvYgBk0CHOVHthWnkuWt",
       "rating": 0
     },
     {
-      "id": "4DByEumlGTZKSzuVEZ35eo",
-      "rating": "2"
-    },
-    {
-      "id": "27QvYgBk0CHOVHthWnkuWt",
+      "id": "2XU0oxnq2qxCpomAAuJY8K",
       "rating": 0
     },
     {
@@ -6403,11 +6403,15 @@
       "rating": 0
     },
     {
+      "id": "0HPD5WQqrq7wPWR7P7Dw1i",
+      "rating": 0
+    },
+    {
       "id": "0RTzJVkunbGwuRjXDFHnjf",
       "rating": 0
     },
     {
-      "id": "7MXVkk9YMctZqd1Srtv4MB",
+      "id": "3iYNJX4FTRGlfMQySjlGNr",
       "rating": 0
     },
     {
@@ -6415,15 +6419,11 @@
       "rating": 0
     },
     {
-      "id": "0HPD5WQqrq7wPWR7P7Dw1i",
+      "id": "7MXVkk9YMctZqd1Srtv4MB",
       "rating": 0
     },
     {
       "id": "4VqPOruhp5EdPBeR92t6lQ",
-      "rating": 0
-    },
-    {
-      "id": "3iYNJX4FTRGlfMQySjlGNr",
       "rating": 0
     }
   ]

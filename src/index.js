@@ -1,33 +1,30 @@
 
-//Global variables
+//GLOBAL VARIABLES
 
 let currentTrack;
+let currentTrackElement;
+let nextTrackElement;
+let previousTrackElement;
+const myForm = document.getElementById('myForm');
+
+
+////INITIALIZING FETCH
 
 fetch('http://localhost:3000/tracks')
   .then(response => response.json())
   .then(tracks => {
     tracks.forEach(track =>{
+      postMyRating(track, 0)
       renderTrack(track);
     })
     displayTrackDetails(tracks[0])
   });
 
-// function renderPlaylists(playlists) {
-//   playlists.forEach(playlist => {
-//     renderSinglePlaylist(playlist) 
-//   });
-// }
 
-// function renderSinglePlaylist(playlist) {
-//   for (let i = 0; i < playlist.tracks.length; i++){
-//     renderTrack(playlist.tracks[i])
-//     displayTrackDetails(playlist.tracks[i])
-//     postMyRating(playlist.tracks[i], 0)
-//   }
-// }
+////FUNCTIONS
 
 function displayTrackDetails(track) {
-  currentTrack = track;
+  currentTracker(track);
   const albumName = document.getElementById("album-name")
   const albumTracks = document.getElementById("album-track-count")
   const artist = document.getElementById("artist")
@@ -43,8 +40,7 @@ function displayTrackDetails(track) {
   spotifyId.textContent = track.id
   position.textContent = track.track_number
 
-  const target = track.id
-  fetch(`http://localhost:3000/myRatings/${target}`)
+  fetch(`http://localhost:3000/myRatings/${track.id}`)
     .then(res => res.json())
     .then(data => myRating.textContent = data.rating)
 }
@@ -57,14 +53,12 @@ function renderTrack(track){
     imageElement.src = track.album.images[1].url
     newElement.append(imageElement);
 
-    //postMyRating(track, 0)
-
     imageElement.addEventListener("click", () => { 
       displayTrackDetails(track)
     })
 }
 
-function postMyRating(track, rating){
+async function postMyRating(track, rating){
   const data = {
     "id": track.id,
     "rating": rating
@@ -75,16 +69,6 @@ function postMyRating(track, rating){
     "body" : JSON.stringify(data)
   })
 }
-
-const submitButton = document.getElementById('submit-button');
-const myForm = document.getElementById('myForm');
-
-submitButton.addEventListener('submit', event => {
-  event.preventDefault();
-  submitRating();
-  displayTrackDetails(currentTrack);
-  myForm.reset();  // Use the reset method on the form
-});
 
 function submitRating() {
     const selectedRating = document.querySelector('input[name="rating"]:checked');
@@ -97,50 +81,94 @@ function submitRating() {
   }
 
 function patchRating(track,rating){
-  const data = {
-    "rating": rating
-  }
-  const target = track.id
-  fetch(`http://localhost:3000/myRatings/${target}`, {
+  const data = { "rating" : rating }
+  
+  fetch(`http://localhost:3000/myRatings/${track.id}`, {
     "method" : "PATCH",
     "headers" : {"Content-Type" : "application/json"},
     "body" : JSON.stringify(data)
     })
-    fetch(`http://localhost:3000/tracks/${target}`)
-      .then(res => res.json())
-      .then(track => { 
-        displayTrackDetails(track)
-  })
+    fetchDisplayTrack(track.id)
 }
 
-document.getElementById("delete-button").addEventListener("click", () => {
-  deleteTrack(currentTrack)
-})
-
-function deleteTrack(track){
-  const target = track.id
-  fetch(`http://localhost:3000/myRatings/${target}`, {
+function deleteCurrentTrack(){
+  fetch(`http://localhost:3000/myRatings/${currentTrack.id}`, {
     "method" : "DELETE",
     "headers" : {"Content-Type" : "application/json"}
   })
 
-  fetch(`http://localhost:3000/tracks/${target}`,{
+  fetch(`http://localhost:3000/tracks/${currentTrack.id}`,{
     "method" : "DELETE",
     "headers" : {"Content-Type" : "application/json"}
   })
 
-    const removeImage = document.getElementById(track.id)
-    const nextImage = removeImage.nextElementSibling
-    removeImage.innerHTML =" "
-    removeImage.remove()
-    if (nextImage) {
-      fetch(`http://localhost:3000/tracks/${nextImage.id}`)
-      .then(res => res.json())
-      .then(track => { 
-        displayTrackDetails(track)
-      })
+  currentTrackElement.remove()
+  if (nextTrackElement) {
+    fetchDisplayTrack(nextTrackElement.id)
   }
 }
+
+function previousSong(){
+  const previousTrack = document.getElementById(currentTrack.id).previousElementSibling
+  if (previousTrack) {
+    fetchDisplayTrack(previousTrack.id)
+  } else {throw new Error("You're at the first track")}
+}
+
+function nextSong(){
+  const nextTrack = (document.getElementById(currentTrack.id).nextElementSibling)
+  if (nextTrack) {
+    fetchDisplayTrack(nextTrack.id)
+  } else {throw new Error("You're on the last track")}
+}
+
+function fetchDisplayTrack(id){
+  fetch(`http://localhost:3000/tracks/${id}`)
+  .then(res => res.json())
+  .then(track => { 
+    displayTrackDetails(track)})
+}
+
+
+//NOT YET IN USE
+function currentTracker(track){
+  currentTrack = track
+  currentTrackElement = document.getElementById(track.id)
+  if (currentTrackElement.nextElementSibling){
+    nextTrackElement = currentTrackElement.nextElementSibling
+  } else if (document.getElementsByClassName("album-image")[0]){
+    nextTrackElement = document.getElementsByClassName("album-image")[0]
+  } else { throw new Error("Your playlist is empty")}
+
+  if (currentTrackElement.previousElementSibling){
+    previousTrackElement = currentTrackElement.previousElementSibling
+  }
+}
+
+
+// function renderPlaylists(playlists) {
+//   playlists.forEach(playlist => {
+//     renderSinglePlaylist(playlist) 
+//   });
+// }
+
+// function renderSinglePlaylist(playlist) {
+//   for (let i = 0; i < playlist.tracks.length; i++){
+//     renderTrack(playlist.tracks[i])
+//     displayTrackDetails(playlist.tracks[i])
+//     postMyRating(playlist.tracks[i], 0)
+//   }
+// }
+
+
+//// EVENT LISTENERS
+
+document.getElementById('submit-button').addEventListener('submit', event => {
+  event.preventDefault();
+  submitRating();
+  displayTrackDetails(currentTrack);
+  myForm.reset();
+});
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowLeft") {
@@ -148,31 +176,9 @@ document.addEventListener("keydown", function (event) {
   }
   if (event.key === "ArrowRight") {
       nextSong();
-  }
-});
+  }});
 
-function previousSong(){
-  const previousTrack = document.getElementById(currentTrack.id).previousElementSibling
-  if (previousTrack) {
-    fetch(`http://localhost:3000/tracks/${previousTrack.id}`)
-    .then(res => res.json())
-    .then(track => { 
-      displayTrackDetails(track)
-    })
-} else { 
-  throw new Error("You're at the first track")
-}
-}
 
-function nextSong(){
-  const nextTrack = (document.getElementById(currentTrack.id).nextElementSibling)
-  if (nextTrack) {
-    fetch(`http://localhost:3000/tracks/${nextTrack.id}`)
-    .then(res => res.json())
-    .then(track => { 
-      displayTrackDetails(track)
-    })
-} else { 
-  throw new Error("You're on the last track")
-  }
-}
+document.getElementById("delete-button").addEventListener("click", () => {
+  deleteCurrentTrack()
+})
