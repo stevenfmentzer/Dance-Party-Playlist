@@ -158,6 +158,6 @@ document.addEventListener("keydown", function (event) {
   }});
 
 document.getElementById("delete-button").addEventListener("click", () => {
-  deleteCurrentTrack(myRatings)
-  deleteCurrentTrack(tracks)
+  deleteCurrentTrack("myRatings")
+  deleteCurrentTrack("tracks")
 })
